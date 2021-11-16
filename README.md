@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @Shusovan Chakraborty
 - 👀 I’m interested in Python Programming
-- 🌱 I’m currently learning and working at Moolya Software Testing
+- 🌱 I’m currently working at Capgemini
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
 
