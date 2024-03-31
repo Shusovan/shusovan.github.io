@@ -1,5 +1,5 @@
 - 👋 Hi, I’m @Shusovan Chakraborty
-- 👀 I’m interested in Python Programming
+- 👀 Software Engineer
 - 🌱 
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
