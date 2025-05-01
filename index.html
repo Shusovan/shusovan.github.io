@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-text);
+            background-color: #f5f5f5;
+        }
+        
+        /* Header Styles */
+        .resume-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50% 50% / 20%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .resume-header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 10%, transparent 40%);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+        
+        .name-title {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+        }
+        
+        /* Contact Info */
+        .contact-info {
+            margin-top: 1rem;
+        }
+        
+        .contact-item {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .contact-icon {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Main Content Styles */
+        .resume-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .resume-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+        }
+        
+        /* Experience & Education */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+        }
+        
+        .timeline-item::after {
+            content: "";
+            position: absolute;
+            left: 7px;
+            top: 25px;
+            width: 1px;
+            height: calc(100% - 15px);
+            background-color: var(--secondary-color);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .timespan {
+            color: var(--secondary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .position, .degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .company, .institution {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Skills */
+        .skill-category {
+            margin-bottom: 2rem;
+        }
+        
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+        
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            border-radius: 5px;
+        }
+        
+        /* Projects */
+        .project-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .project-title:hover {
+            color: var(--secondary-color);
+        }
+        
+        .project-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .project-link:hover {
+            text-decoration: none;
+        }
+        
+        /* Languages & Interests */
+        .language-item, .interest-item {
+            display: inline-block;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .language-item:hover, .interest-item:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Certifications */
+        .cert-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .cert-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc(50% - 0.75rem);
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            color: var(--dark-text);
+            transition: transform 0.3s ease;
+        }
+        
+        .cert-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .cert-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            padding: 5px;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .cert-item:hover .cert-logo {
+            transform: scale(1.05);
+        }
+        
+        .cert-title {
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+        
+        .cert-issuer {
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 991px) {
+            .cert-item {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .resume-header {
+                text-align: center;
+                padding: 2rem 0;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        .delay-5 { animation-delay: 1s; }
+        .delay-6 { animation-delay: 1.2s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Header Section -->
+        <header class="resume-header">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-12 text-center name-title">
+                        <h1 class="name">Shusovan Chakraborty</h1>
+                        <h2 class="title">Senior Software Engineer</h2>
+                        <p class="summary">Experienced Java & Python Developer specializing in Spring Boot and FastAPI microservices, optimizing RESTful APIs for high performance and reduced latency. Skilled in AI-assisted development using GitHub Copilot, Amazon CodeWhisperer, and performance tuning with modern IDEs.</p>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                                shusovan.chakraborty98@gmail.com
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                                +91 8918792672
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                Bangalore, Karnataka
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fab fa-linkedin"></i></span>
+                                <a href="https://www.linkedin.com/in/shusovan-chakraborty/" target="_blank" style="color: inherit; text-decoration: none;">linkedin.com</a>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon"><i class="fab fa-github"></i></span>
+                                <a href="https://github.com/Shusovan" target="_blank" style="color: inherit; text-decoration: none;">github.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="container">
+            <div class="row">
+                <!-- Left Column -->
+                <div class="col-lg-4">
+                    <!-- Education Section -->
+                    <section class="resume-section animate-fadeInUp delay-1">
+                        <h3 class="section-title">Education</h3>
+                        
+                        <div class="timeline-item">
+                            <div class="timespan">2017 - 2021</div>
+                            <h4 class="degree">Computer Science Engineering</h4>
+                            <div class="institution">Alliance University</div>
+                            <!--<div class="place">Bangalore, Karnataka</div>-->
+                            <!--<p>Relevant coursework: Course 1, Course 2, Course 3</p>-->
+                            <!--<p>Notable achievements or activities</p>-->
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timespan">2016 - 2017</div>
+                            <h4 class="degree">Class 12</h4>
+                            <div class="institution">Burnpur Riverside School</div>
+                            <!--<p>Brief description or details about the certification</p>-->
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timespan">2014 - 2015</div>
+                            <h4 class="degree">Class 10</h4>
+                            <div class="institution">Burnpur Riverside School</div>
+                            <!--<p>Brief description or details about the certification</p>-->
+                        </div>
+                    </section>
+                    
+                    <!-- Skills Section -->
+                    <section class="resume-section animate-fadeInUp delay-2">
+                        <h3 class="section-title">Skills</h3>
+                        
+                        <div class="skill-category">
+                            <h4 class="category-title">Technical Skills</h4>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">Python</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">Java</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 55%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">FastAPI</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">Microservices</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 72%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">SQL</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 75%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">AWS</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 50%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">Generative AI</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 50%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">LangChain</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h4 class="category-title">Soft Skills</h4>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">Leadership</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">Communication</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="skill-item">
+                                <div class="skill-name">Problem Solving</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 85%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">Presentation Skill</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="skill-item">
+                                <div class="skill-name">Team Player</div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Languages Section -->
+                    <section class="resume-section animate-fadeInUp delay-3">
+                        <h3 class="section-title">Languages</h3>
+                        <div>
+                            <span class="language-item">English (Fluent)</span>
+                            <span class="language-item">Bengali (Native)</span>
+                            <span class="language-item">Hindi (Fluent)</span>
+                            <span class="language-item">Spanish (Intermediate)</span>
+                        </div>
+                    </section>
+                    
+                    <!-- Interests Section -->
+                    <section class="resume-section animate-fadeInUp delay-4">
+                        <h3 class="section-title">Interests</h3>
+                        <div>
+                            <span class="interest-item">PC/PS Gaming</span>
+                            <span class="interest-item">Cooking</span>
+                        </div>
+                    </section>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="col-lg-8">
+                    <!-- Experience Section -->
+                    <section class="resume-section animate-fadeInUp delay-1">
+                        <h3 class="section-title">Professional Experience</h3>
+                        
+                        <div class="timeline-item">
+                            <div class="timespan">September 2021 - Present</div>
+                            <h4 class="position">Senior Software Engineer</h4>
+                            <div class="company">Capgemini, Bangalore</div>
+                            <p>Developed efficient RESTful APIs using Java and Spring Boot in a microservices setup, optimizing performance and reducing latency. Leveraged AI tools like GitHub Copilot and CodeWhisperer to boost development speed. Designed an AI-driven food ordering chatbot using AWS services including Bedrock, Lambda, and SageMaker.</p>
+                            <ul>
+                                <li>Developed and optimized RESTful APIs using Java and Spring Boot, enabling seamless integration with user interfaces in a microservices architecture. Improved API performance by 30-50% and reduced inter-service latency by 40-60% using RestClient for efficient communication.</li>
+                                <li>Implemented AI-assisted development using GitHub Copilot and Amazon CodeWhisperer, reducing manual coding effort by 30-50% and improving code efficiency by 20-40% in production-grade applications.</li>
+                                <li>Proficient in debugging and optimizing applications, using modern IDEs (IntelliJ, Eclipse), profiling tools, and performance monitoring to ensure high availability and minimal downtime.</li>
+                                <li>Designed and implemented a prototype architecture for an AI-powered Intelligent Chatbot for Advanced Food Ordering and Recommendations in AWS, leveraging services like Amazon Bedrock, Amazon Lambda, Amazon S3 and Amazon SageMaker.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timespan">July 2021 - September 2021</div>
+                            <h4 class="position">Intern</h4>
+                            <div class="company">Moolya, Bangalore</div>
+                            <p>Proficient in Python application development using FastAPI, with experience in ORM tools like SQLAlchemy. Familiar with the Software Development Life Cycle (SDLC) and foundational DevOps practices.</p>
+                            <ul>
+                                <li>Proficient in Python application development with hands-on experience in frameworks like Flask, FastAPI, and ORM libraries such as SQLAlchemy.</li>
+                                <li>Acquired understanding of Software Development Life Cycle (SDLC) and learned basics of DevOps practices.</li>
+                            </ul>
+                        </div>
+                    </section>
+                    
+                    <!-- Certifications Section -->
+                    <section class="resume-section animate-fadeInUp delay-2">
+                        <h3 class="section-title">Certifications</h3>
+                        
+                        <div class="cert-container">
+                            <a href="https://github.com/Shusovan/Shusovan/blob/main/AWS%20Certified%20Developer%20-%20Associate%20certificate.pdf" target="_blank" class="cert-item">
+                                <img src="https://passyourcert.net/wp-content/uploads/2021/11/aws.png" alt="AWS Certification" class="cert-logo">
+                                <div class="cert-title">AWS Certified Developer Associate</div>
+                                <div class="cert-issuer">Amazon Web Services</div>
+                            </a>
+                            
+                            <a href="https://www.udemy.com/certificate/UC-b1423a38-f21e-4eaa-a1cf-4f25aa40c249/" target="_blank" class="cert-item">
+                                <img src="https://freelogopng.com/images/all_img/1683006968udemy-icon-png.png" alt="Google Certification" class="cert-logo">
+                                <div class="cert-title">Data Structure and Algorithm using Python</div>
+                                <div class="cert-issuer">Udemy</div>
+                            </a>
+                            
+                            <a href="https://www.udemy.com/certificate/UC-1a5d14e3-df49-4500-b0f3-970619873ca3/" target="_blank" class="cert-item">
+                                <img src="https://freelogopng.com/images/all_img/1683006968udemy-icon-png.png" alt="Microsoft Certification" class="cert-logo">
+                                <div class="cert-title">Git & GitHub</div>
+                                <div class="cert-issuer">Udemy</div>
+                            </a>
+                            
+                            <a href="https://www.coursera.org/account/accomplishments/verify/8JH84KJZR33Z" target="_blank" class="cert-item">
+                                <img src="https://images.chesscomfiles.com/uploads/v1/group/217606.fc2b65c0.160x160o.4eff7e5e2dc3@2x.png" alt="Scrum Certification" class="cert-logo">
+                                <div class="cert-title">Generative AI for Everyone</div>
+                                <div class="cert-issuer">Coursera</div>
+                            </a>
+                        </div>
+                    </section>
+                    
+                    <!-- Projects Section -->
+                    <section class="resume-section animate-fadeInUp delay-3">
+                        <h3 class="section-title">Notable Projects</h3>
+                        
+                        <div class="project-item">
+                            <a href="https://github.com/Shusovan/LibraryApp" target="_blank" class="project-link">
+                                <h4 class="project-title">Library Management Application <i class="fas fa-external-link-alt fa-sm"></i></h4>
+                            </a>
+                            <p>It is an enterprise-grade microservices-based system built using FastAPI. It streamlines the processes of managing books, users, borrowing, and administration in a library environment. The application is divided into multiple services, each with a dedicated responsibility, ensuring modularity and scalability.</p>
+                            <span class="interest-item">Python</span>
+                            <span class="interest-item">FastAPI</span>
+                            <span class="interest-item">JWT</span>
+                            <span class="interest-item">RBAC</span>
+                            <span class="interest-item">Microservices</span>
+                            <span class="interest-item">Rest API</span>
+                        </div>
+                        
+                        <div class="project-item">
+                            <a href="https://github.com/Shusovan/QuizPortalApp" target="_blank" class="project-link">
+                                <h4 class="project-title">Quiz Portal Application <i class="fas fa-external-link-alt fa-sm"></i></h4>
+                            </a>
+                            <p>Designed an Online Quiz Portal using Spring Boot. Key features of the application include multiple-choice question creation, quiz creation, assigning quiz to users and user report generation. Users can take multiple quizzes.</p>
+                            <span class="interest-item">Java</span>
+                            <span class="interest-item">Spring Boot</span>
+                            <span class="interest-item">JPA</span>
+                            <span class="interest-item">Flask</span>
+                            <span class="interest-item">Python</span>
+                            <span class="interest-item">JWT</span>
+                            <span class="interest-item">RBAC</span>
+                            <span class="interest-item">Microservices</span>
+                        </div>
+                        
+                        <!--<div class="project-item">
+                            <a href="https://github.com/yourusername/project3" target="_blank" class="project-link">
+                                <h4 class="project-title">Third Project <i class="fas fa-external-link-alt fa-sm"></i></h4>
+                            </a>
+                            <p>Brief description of the project, your role, technologies used, and outcomes achieved. Highlight innovative approaches or solutions implemented.</p>
+                        </div>-->
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
