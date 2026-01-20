@@ -4,7 +4,7 @@
 **Software Engineer**
 
 ## 🛠️ Top Skills & Technologies
-- **Python**
+- **Python, FastAPI**
 - **Machine Learning**
 - **Generative AI / Agentic AI**
 - **Retrieval-Augmented Generation (RAG)**
